@@ -3,10 +3,19 @@ get_header();
 ?>
     <section class="hero">
         <div class="hero-text">
-            <h1>Welcome to our website</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.</p>
+            <?php
+            if ( have_posts() ) :
+                while ( have_posts() ) :
+                    the_post();
+                    the_title('<h1>', '</h1>');
+                    the_content();
+                endwhile;
+            else :
+                _e( 'Sorry, no posts matched your criteria.', 'textdomain' );
+            endif;
+            ?>
         </div>
-        <img src="<?php echo get_template_directory_uri(); ?>/map.svg" alt="Hero">
+        <?php the_custom_header_markup() ?>
     </section>
 <main>
     <section class="products">
