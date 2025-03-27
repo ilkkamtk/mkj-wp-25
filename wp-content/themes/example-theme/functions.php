@@ -1,5 +1,7 @@
 <?php
 require_once( __DIR__ . '/inc/article-function.php' );
+require_once( __DIR__ . '/inc/random-image.php' );
+
 function theme_setup(): void
 {
     add_theme_support( 'title-tag' );
