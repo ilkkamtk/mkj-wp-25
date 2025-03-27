@@ -1,5 +1,7 @@
 <?php
-function theme_setup() {
+require_once( __DIR__ . '/inc/article-function.php' );
+function theme_setup(): void
+{
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
     add_theme_support( 'custom-header' );
@@ -17,3 +19,11 @@ function theme_setup() {
 }
 
 add_action( 'after_setup_theme', 'theme_setup' );
+
+// Päävalikko
+function register_my_menu(): void
+{
+    register_nav_menu( 'main-menu', __( 'Main Menu' ) );
+}
+
+add_action( 'after_setup_theme', 'register_my_menu' );
