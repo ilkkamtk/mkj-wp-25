@@ -44,11 +44,30 @@ function like_button(): string {
 
 	$likes = count( $results );
 
+	// tarkista onko käyttäjä jo tykännyt
+	$user_id = get_current_user_id();
+
+	$data = [
+		'post_id' => $post_id,
+		'user_id' => $user_id,
+	];
+
+	$preparedQuery = $wpdb->prepare(
+		"SELECT id FROM $table_name WHERE post_id = %d and user_id = %d",
+		$data
+	);
+	$user_results  = $wpdb->get_results( $preparedQuery );
+
+	$icon = 'thumbs-up';
+
+	if ( count( $user_results ) == 0 ) {
+		$icon = 'thumbs-up-outline';
+	}
 
 	$output = '<form id="like-form" method="post" action="' . admin_url( 'admin-post.php' ) . '">';
 	$output .= '<input type="hidden" name="action" value="add_like">';
 	$output .= '<input type="hidden" name="post_id" value="' . $post_id . '">';
-	$output .= '<button id="like-button" type="submit"><ion-icon name="thumbs-up"></ion-icon></button>';
+	$output .= '<button id="like-button" type="submit"><ion-icon name="' . $icon . '"></ion-icon></button>';
 	$output .= '<span id="like-count">' . $likes . '</span>';
 	$output .= '</form>';
 
