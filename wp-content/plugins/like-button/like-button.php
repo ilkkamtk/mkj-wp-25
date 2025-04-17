@@ -80,7 +80,7 @@ add_shortcode( 'like_button', 'like_button' );
 	);
 	$results       = $wpdb->get_results( $preparedQuery );
 
-	if ( count($results) == 0 ) {
+	if ( count( $results ) == 0 ) {
 		// lisää tykkäys
 
 		$data = [
@@ -99,6 +99,25 @@ add_shortcode( 'like_button', 'like_button' );
 			echo 'Like added';
 		} else {
 			echo 'Error adding like';
+		}
+	} else {
+		// poista tykkäys
+		$where = [
+			'post_id' => $post_id,
+			'user_id' => $user_id,
+		];
+
+		$where_format = [
+			'%d',
+			'%d',
+		];
+
+		$success = $wpdb->delete( $table_name, $where, $where_format );
+
+		if ( $success ) {
+			echo 'Data deleted';
+		} else {
+			echo 'Error deleting data';
 		}
 	}
 
