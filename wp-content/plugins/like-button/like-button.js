@@ -9,6 +9,7 @@ likeForm.addEventListener('submit', async (evt) => {
     const data = new URLSearchParams({
         action: 'add_like',
         post_id: postId,
+        like_form_nonce: likeButton.nonce,
     });
     const response = await fetch(url, {
         method: 'POST',
