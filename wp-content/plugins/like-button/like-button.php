@@ -140,7 +140,7 @@ add_shortcode( 'like_button', 'like_button' );
 		}
 	}
 
-	wp_redirect( $_SERVER['HTTP_REFERER'] );
+	wp_redirect( $_SERVER['HTTP_REFERER'] ); // kommentoi pois ajax vesiossa
 	exit;
 }
 
@@ -153,3 +153,7 @@ function my_theme_load_ionicons_font(): void {
 }
 
 add_action( 'wp_enqueue_scripts', 'my_theme_load_ionicons_font' );
+
+// ajax toiminnallisuus
+// lisää action: add_like(), ks. single-post-ajax.php
+// enqueue skripti, ks. functions.php
